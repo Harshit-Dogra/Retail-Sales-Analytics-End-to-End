@@ -61,7 +61,7 @@ Two separate notebooks were created:
 The dataset contained 12,575 rows and 11 columns. Rather than applying a default drop strategy — which would have reduced the dataset to approximately 7,000 rows — a deliberate, column-by-column cleaning approach was followed:
 
 * **Discount Applied** (4,199 missing values) — Filled with "Unknown" as a data preservation technique. This placeholder was intentionally excluded from final analysis and dashboard reporting, as the equal ~1/3 distribution across True, False, and Unknown indicated no meaningful signal.
-* **Item** (1,213 missing values) — Column dropped entirely as it held no analytical value.
+* **Item** (1,213 missing values) — This column consisted of granular product IDs that were not utilized in the final analysis pipeline (as high-level insights were driven by the Category column), these missing entries were simply imputed with 'Unknown'.
 * **Price Per Unit** (609 missing values) — Recovered using the mathematical relationship: Total Spent = Price Per Unit × Quantity. Where both Quantity and Total Spent were present, Price Per Unit was calculated accordingly.
 * **Quantity & Total Spent** (604 missing values each) — Both columns were simultaneously missing in the same 604 records, making mathematical recovery impossible. These records were dropped to maintain data reliability.
 * **Transaction Date** — Converted from string to datetime format to enable accurate time-series analysis.
