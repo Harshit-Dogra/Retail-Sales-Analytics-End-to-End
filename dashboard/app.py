@@ -127,6 +127,8 @@ def load_data(path: str) -> pd.DataFrame:
     # Fill missing totals from price x quantity, drop rows that are still unusable
     df["Total Spent"] = df["Total Spent"].fillna(df["Price Per Unit"] * df["Quantity"])
     df["Transaction Date"] = pd.to_datetime(df["Transaction Date"], format="%m/%d/%Y", errors="coerce")
+    # Exclude incomplete 2025 data; analysis scope: 2022–2024
+    df = df[df["Transaction Date"] <= "2024-12-31"]
     df = df.dropna(subset=["Transaction Date", "Total Spent"])
 
     df["Discount Applied"] = (df["Discount Applied"].astype(str).str.strip().str.upper()
