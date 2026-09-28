@@ -4,7 +4,7 @@
 
 This project demonstrates a complete end-to-end data analytics workflow, transforming raw retail sales data into actionable insights through deliberate, reasoned decision-making at every stage of the pipeline.
 
-The analysis covers a three-year period (2022–2024), encompassing approximately 1.53M in total revenue generated from 11.7K unique orders and over 65K items sold. The project follows a structured pipeline involving data inspection, cleaning, exploratory data analysis, and business reporting.
+The analysis covers a three-year period (2022–2024), encompassing approximately 1.53M in total revenue generated from 11.7K unique orders and over 65K items sold. The project follows a structured pipeline involving data inspection, cleaning, exploratory data analysis, business reporting, and interactive dashboard development.
 
 ---
 
@@ -35,6 +35,8 @@ To maintain analytical integrity:
 * **Libraries:** Pandas, NumPy, Matplotlib, Seaborn
 * **Development Environment:** Jupyter Notebook
 * **Business Intelligence & Reporting:** Power BI
+* **Interactive Web Application:** Streamlit
+* **Data Visualization:** Plotly
 * **Data Modeling & Measures:** DAX
 
 ---
@@ -61,7 +63,7 @@ Two separate notebooks were created:
 The dataset contained 12,575 rows and 11 columns. Rather than applying a default drop strategy — which would have reduced the dataset to approximately 7,000 rows — a deliberate, column-by-column cleaning approach was followed:
 
 * **Discount Applied** (4,199 missing values) — Filled with "Unknown" as a data preservation technique. This placeholder was intentionally excluded from final analysis and dashboard reporting, as the equal ~1/3 distribution across True, False, and Unknown indicated no meaningful signal.
-* **Item** (1,213 missing values) — This column consisted of granular product IDs that were not utilized in the final analysis pipeline (as high-level insights were driven by the Category column), these missing entries were simply imputed with 'Unknown'.
+* **Item** (1,213 missing values) — Column dropped entirely as it held no analytical value.
 * **Price Per Unit** (609 missing values) — Recovered using the mathematical relationship: Total Spent = Price Per Unit × Quantity. Where both Quantity and Total Spent were present, Price Per Unit was calculated accordingly.
 * **Quantity & Total Spent** (604 missing values each) — Both columns were simultaneously missing in the same 604 records, making mathematical recovery impossible. These records were dropped to maintain data reliability.
 * **Transaction Date** — Converted from string to datetime format to enable accurate time-series analysis.
@@ -84,6 +86,8 @@ Business questions were addressed through Univariate, Bivariate, and Multivariat
 
 A corporate-style interactive dashboard was developed to provide stakeholders with a clean, high-level view of business performance.
 
+![Power BI Dashboard Overview](screenshots/dashboard_overview.png)
+
 The dashboard enables:
 
 * Monitoring revenue trends over time.
@@ -92,25 +96,40 @@ The dashboard enables:
 * Analyzing payment method contributions.
 * Understanding transaction distribution and customer preferences.
 
-> Dashboard screenshots available in the `/screenshots` folder.
+### Streamlit – Interactive Web Application
+
+A custom interactive web application was developed using Streamlit as an alternative interface for exploring the retail sales data.
+
+![Streamlit Dashboard Overview](screenshots/streamlit-dashboard-overview.png)
+
+The Streamlit application was developed as an AI-assisted development experiment using Claude and prompt engineering to explore how effectively AI could translate analytical requirements and design direction into a functional dashboard.
+
+The application provides an additional interactive way to explore the same retail sales analysis.
+
+> Features, development approach, and instructions for running the Streamlit application are documented in [`dashboard/README.md`](dashboard/README.md).
 
 ---
 
 ## Key Insights
 
 ### Seasonal Revenue Pattern
+
 Revenue consistently peaks during December–January across all three years, indicating a recurring seasonal demand pattern likely aligned with festive periods. This pattern is validated by the 3-year average, making it a reliable business insight rather than a one-time anomaly.
 
 ### Category Performance
+
 Butchers generated the highest revenue and recorded the highest Average Order Value (AOV) of 138.86, while Milk Products showed the lowest revenue and lowest AOV of 119.32. Overall, category performance remained relatively balanced across all segments.
 
 ### Annual Performance
+
 Business performance remained stable across the three-year period, with 2024 recording the highest annual revenue.
 
 ### Payment Behavior
+
 Cash was the most frequently used payment method and generated the highest total revenue, contributing approximately 530K in sales. Credit Cards and Digital Wallets also maintained significant shares, indicating diversified payment preferences.
 
 ### Order Value Stability
+
 Despite monthly fluctuations in revenue, transaction values remained highly consistent, averaging approximately 129.71 per order.
 
 ---
@@ -119,4 +138,4 @@ Despite monthly fluctuations in revenue, transaction values remained highly cons
 
 This project demonstrates that thoughtful data decisions matter as much as technical execution. From recovering missing values mathematically, to excluding incomplete yearly data, to filtering inconclusive variables from the dashboard — every decision was made with analytical integrity and business context in mind.
 
-By combining Excel, Python, and Power BI, this project showcases the complete analytics lifecycle — from raw data inspection to business reporting and insight generation.
+By combining Excel, Python, Power BI, and Streamlit, the project demonstrates an evolving analytics workflow — from raw data inspection and cleaning to exploratory analysis, business reporting, and interactive web-based analytics.
